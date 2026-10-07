@@ -1,0 +1,12 @@
+#KNS v1
+cipher: aes-256-gcm
+kdf: pbkdf2-sha256
+iterations: 600000
+salt: +bAM1azH8dLiQLfRvHXtig==
+
+[message]
+from: kanishk
+date: 2026-10-07
+nonce: 5Qb2q/cufsPk4/TO
+---
+qDY5vZqhJkMH/4YajRiAS1Bi/ZTkzZUvU7/W

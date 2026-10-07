@@ -1,0 +1,19 @@
+#KNS v1
+cipher: aes-256-gcm
+kdf: pbkdf2-sha256
+iterations: 600000
+salt: CldrTlwpuqdx6lybJYAYcA==
+
+[message]
+type: text
+from: kanishk
+date: 2026-10-07
+nonce: lZbUYbxWZtCfs37m
+
+[message]
+type: text
+from: asha
+date: 2026-10-08
+nonce: gakNRRnH5HUuFUD0
+---
+yxB7DppdZ6Yuo01dSGOJSGr/YmT1U95seOL9upWJesPDNA==

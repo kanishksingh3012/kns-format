@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.DS_Store
+.claude/
+
+# Your own message files. The samples in examples/ are still tracked.
+/*.kns

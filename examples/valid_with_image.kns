@@ -1,0 +1,24 @@
+#KNS v1
+cipher: aes-256-gcm
+kdf: pbkdf2-sha256
+iterations: 600000
+salt: jce1O0bsI4ox4lmYdJGrig==
+
+[message]
+type: text
+from: kanishk
+date: 2026-10-07
+nonce: TTywi5d3LrJjxrnJ
+---
+DVVLXwk0Cew33bmpodJdBPoFLt0RGtI98wR4
+
+[message]
+type: image
+from: asha
+date: 2026-10-09
+name: square.png
+nonce: 4Yd+fvUifH+MWfSi
+---
+GEN7jJA8/8swyjnFBWCK6Rg/o5dpn2tJUkTxBJ7AI6Y8lHQ8xixMUfDTYWpT4Y7k
+HZdxmFNUNsFl62MeoOCLPIFIr1ykHS797nYBT7pXx+PNIZ7SBNK5NGdjs71CF3Ob
+SVH8ucqbUS8aqTSEwWt6y7cXAL2ofdxfnO0LJFImt44uiBk17ES1CXcVNjI=

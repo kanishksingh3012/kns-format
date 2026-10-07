@@ -1,0 +1,5 @@
+#KNS v1
+cipher: aes-256-gcm
+kdf: pbkdf2-sha256
+iterations: 600000
+salt: VSIuRcxQ9Av5DnzPj6a8+Q==
