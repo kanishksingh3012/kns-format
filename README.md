@@ -31,7 +31,10 @@ forgotten password.
 ## Web page
 
 `web/index.html` is a single page with no dependencies. It reads and
-writes `.kns` files in the browser and sends nothing anywhere. Browsers only
+writes `.kns` files in the browser and sends nothing anywhere. A short
+file can also be sent as a link that opens straight in the page; the
+file travels after the `#`, which browsers do not send to the server.
+Its look follows HeroUI's default theme, in plain CSS. Browsers only
 allow decryption on pages served over https or from localhost.
 
 To publish the current page to GitHub Pages:

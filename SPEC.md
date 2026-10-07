@@ -153,6 +153,21 @@ These are not parse errors. A file can be well formed and still fail here:
 - `salt`, `nonce` or a payload is not valid base64, or has the wrong length
 - the password is wrong, or the file was tampered with
 
+## A file inside a link
+
+A whole file can be carried in the part of a web address after the `#`:
+
+```
+https://<where the reader page lives>/#kns=<data>
+```
+
+`<data>` is the file's UTF-8 bytes in base64url (the base64 alphabet
+with `-` and `_` in place of `+` and `/`, and no `=` padding).
+
+Browsers never send the part after `#` to the server, so the page's
+host does not see the file. The link holds exactly what the file
+holds: it is as public as the file, and still needs the password.
+
 ## Examples
 
 See `examples/`. Files named `valid_*.kns` must parse. Files named

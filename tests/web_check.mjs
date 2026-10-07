@@ -10,7 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const html = readFileSync(join(root, "web", "index.html"), "utf8");
 const code = html.match(/<script id="kns-core">([\s\S]*?)<\/script>/)[1];
 const core = new Function(code + "\nreturn { parse, deriveKey, decryptBlock, imageType, KnsError, " +
-  "newFileHeader, encryptBlock, serializeFileHeader, appendBlock, imageNameFrom };")();
+  "newFileHeader, encryptBlock, serializeFileHeader, appendBlock, imageNameFrom, textToLink, linkToText };")();
 const { parse, deriveKey, decryptBlock, imageType, KnsError } = core;
 
 // Writing: make a new file, and add to one the Python tool made, then read both back.
@@ -42,6 +42,19 @@ const { parse, deriveKey, decryptBlock, imageType, KnsError } = core;
     for (let i = 0; i < count; i++) await decryptBlock(k, i + 1, kns.blocks[i]);
   }
   if (parse(fresh).blocks[0].header.get("from") !== "asha") throw new Error("sender was not trimmed");
+
+  // A file must survive the trip into a link and back, and broken links must be refused.
+  const { textToLink, linkToText } = core;
+  for (const text of [fresh, added, "#KNS v1\nfrom: Zoë 😀\n", "a", "ab", "abc"]) {
+    const link = textToLink(text);
+    if (!/^#kns=[A-Za-z0-9_-]+$/.test(link)) throw new Error("link has unsafe characters");
+    if (linkToText(link) !== text) throw new Error("link round trip changed the file");
+  }
+  for (const bad of ["", "#kns=", "#other=abcd", "#kns=ab+d", "#kns=abcde", "#kns=_w"]) {
+    let refused = false;
+    try { linkToText(bad); } catch (error) { refused = error instanceof KnsError; }
+    if (!refused) throw new Error(`broken link '${bad}' was accepted`);
+  }
 
   if (process.argv[2]) {
     writeFileSync(join(process.argv[2], "web_new.kns"), fresh);
