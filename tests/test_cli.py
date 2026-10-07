@@ -42,6 +42,16 @@ class CliTests(unittest.TestCase):
         self.assertIn("Meet at 6pm", out)
         self.assertIn("See you there 😀", out)
 
+    def test_spaces_around_the_sender_do_not_break_the_file(self):
+        self.assertEqual(run("add", self.file, "--from", "  kanishk \t", "-m", "hi")[0], 0)
+        code, out, _ = run("read", self.file)
+        self.assertEqual(code, 0)
+        self.assertIn("[1] kanishk,", out)
+
+    def test_line_break_in_the_sender_is_refused(self):
+        self.assertEqual(run("add", self.file, "--from", "a\nnonce: x", "-m", "hi")[0], 1)
+        self.assertFalse(self.path.exists())
+
     def test_message_text_is_not_in_the_file(self):
         run("add", self.file, "-m", "Meet at 6pm")
         self.assertNotIn("6pm", self.path.read_text(encoding="utf-8"))

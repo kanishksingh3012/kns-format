@@ -55,12 +55,13 @@ def derive_key(password: str, file_header: dict[str, str]) -> bytes:
 def encrypt_block(key: bytes, index: int, content: bytes, type="text", sender=None, date=None, name=None) -> Block:
     """Encrypt content as block number `index` (the first block is 1)."""
     header = {"type": type}
-    if sender:
-        header["from"] = sender
-    if date:
-        header["date"] = date
-    if name:
-        header["name"] = name
+    for field, value in (("from", sender), ("date", date), ("name", name)):
+        # Store exactly what a parser will read back, or decryption would fail.
+        value = (value or "").strip(" \t")
+        if "\n" in value or "\r" in value:
+            raise CryptoError("a header value cannot contain a line break")
+        if value:
+            header[field] = value
     nonce = os.urandom(NONCE_BYTES)
     header["nonce"] = _encode(nonce)
     ciphertext = AESGCM(key).encrypt(nonce, content, _associated_data(index, header))

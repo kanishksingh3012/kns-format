@@ -46,11 +46,12 @@ nonce: <base64>
 1. The file is UTF-8 text with `\n` line endings.
 2. Line 1 must be exactly `#KNS v1`.
 3. A header line is split on its first `:`. The left side is the key,
-   the right side is the value. Spaces around both are removed.
+   the right side is the value. Spaces and tabs around both are removed.
 4. Keys may contain only `a-z`, `0-9` and `_`.
 5. In a header, lines starting with `#` are comments and are ignored.
-6. Blank lines are ignored everywhere, and so are spaces at the start
-   or end of any line.
+6. Blank lines are ignored everywhere, and so are spaces and tabs at the
+   start or end of any line. Only `\n` and `\r` end a line. A writer
+   must not put either of them inside a value.
 7. A key may appear only once in the file header, and only once in any
    one block header. Two different blocks may use the same key.
 8. Unknown keys are kept but not checked, so later versions can add fields.

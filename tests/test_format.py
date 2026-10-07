@@ -61,6 +61,10 @@ class FormatTests(unittest.TestCase):
             parse("#KNS v1\ncipher: a\ncipher: b\n")
         self.assertEqual(caught.exception.line, 3)
 
+    def test_only_newlines_end_a_line_and_only_spaces_and_tabs_are_trimmed(self):
+        head = "#KNS v1\r\ncipher: a\rkdf: b\niterations: 1\n \tsalt :\t c d  \t\n"
+        self.assertEqual(parse(head).header["salt"], "c d ")
+
     def test_image_names(self):
         # tests/web_check.mjs checks the same names against the web page.
         names = {

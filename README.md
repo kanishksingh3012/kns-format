@@ -1,8 +1,9 @@
 # KNS
 
 A small text file format for password-protected messages and images,
-with a command-line tool to write and read `.kns` files and a web page
-to read them on any device.
+with a command-line tool and a web page that both write and read `.kns`
+files. The page works on any device with nothing to install:
+https://kanishksingh3012.github.io/kns-format/
 
 The format is described in [SPEC.md](SPEC.md).
 
@@ -27,10 +28,10 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 One password unlocks a whole file. There is no way to recover a
 forgotten password.
 
-## Web reader
+## Web page
 
-`web/index.html` is a single page with no dependencies. It reads a
-`.kns` file in the browser and sends nothing anywhere. Browsers only
+`web/index.html` is a single page with no dependencies. It reads and
+writes `.kns` files in the browser and sends nothing anywhere. Browsers only
 allow decryption on pages served over https or from localhost.
 
 To publish the current page to GitHub Pages:

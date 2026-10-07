@@ -41,7 +41,9 @@ class KnsFile:
 
 
 def parse(text: str) -> KnsFile:
-    lines = [line.strip() for line in text.splitlines()]
+    # Only \n and \r end a line, and only spaces and tabs are trimmed, so
+    # that this and the web page split every file in exactly the same way.
+    lines = [line.strip(" \t") for line in re.split(r"\r\n|\r|\n", text)]
     if not lines or lines[0] != MAGIC:
         raise KnsError(f"missing or wrong magic line, expected '{MAGIC}'", 1)
 
@@ -75,7 +77,7 @@ def parse(text: str) -> KnsFile:
 def _read_header_line(line, number, header):
     if ":" not in line:
         raise KnsError("expected 'key: value'", number)
-    key, value = (part.strip() for part in line.split(":", 1))
+    key, value = (part.strip(" \t") for part in line.split(":", 1))
     if not KEY_PATTERN.fullmatch(key):
         raise KnsError(f"invalid key '{key}', only a-z, 0-9 and _ are allowed", number)
     if key in header:
